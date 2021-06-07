@@ -9,6 +9,10 @@
 </template>
 
 <style lang="scss">
-@import './index';
+@import "./index";
+html,
+body {
+  font-family: "Lato", "sans-serif" !important;
+}
 </style>
 
