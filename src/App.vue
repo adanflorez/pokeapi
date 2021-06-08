@@ -1,9 +1,5 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app" class="p-10">
     <router-view />
   </div>
 </template>
@@ -13,6 +9,8 @@
 html,
 body {
   font-family: "Lato", "sans-serif" !important;
+  background: var(--default-smoke);
+  font-size: 18px !important;
 }
 </style>
 
