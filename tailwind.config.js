@@ -66,6 +66,7 @@ module.exports = {
     textColor: theme => theme('colors'),
     borderRadius: {
       'large': '60px',
+      full: '100%'
     },
     stroke: theme => ({
       current: 'currentColor',
