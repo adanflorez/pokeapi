@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute w-full bottom-0 footer-buttons">
+  <div class="fixed w-full bottom-0 footer-buttons bg-white">
     <div class="flex items-center justify-center py-5">
       <UIButton
         text="All"
