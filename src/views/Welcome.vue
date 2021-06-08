@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center text-center h-full">
+  <div class="flex items-center justify-center text-center h-full p-10">
     <div class="text-center flex-col justify-center items-center">
       <img
         src="@/assets/img/welcome.svg"
