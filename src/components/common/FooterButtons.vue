@@ -6,13 +6,17 @@
         class="mr-5 w-36 lg:w-72"
         :class="[btnAllClasses]"
         @click="showAllPokemon"
-      />
+      >
+        <ListIcon slot="icon" class="mr-2.5"
+      /></UIButton>
       <UIButton
         text="Favorites"
         class="w-36 lg:w-72"
         :class="[btnFavoriteClasses]"
         @click="showFavoritePokemon"
-      />
+      >
+        <StarIcon slot="icon" class="mr-2.5" />
+      </UIButton>
     </div>
   </div>
 </template>
@@ -20,9 +24,12 @@
 <script lang="ts">
 import Vue from "vue";
 import UIButton from "@/components/ui/UIButton.vue";
+// Icons
+import ListIcon from "@/assets/img/list.svg";
+import StarIcon from "@/assets/img/star.svg";
 
 export default Vue.extend({
-  components: { UIButton },
+  components: { UIButton, ListIcon, StarIcon },
   data() {
     return {
       btnAllActive: true,
@@ -38,10 +45,16 @@ export default Vue.extend({
     },
   },
   methods: {
+    /**
+     * Show pokemon list
+     */
     showAllPokemon() {
       this.btnAllActive = true;
       this.btnFavoriteActive = false;
     },
+    /**
+     * Show the list of favorite pokemon
+     */
     showFavoritePokemon() {
       this.btnFavoriteActive = true;
       this.btnAllActive = false;
