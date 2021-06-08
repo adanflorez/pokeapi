@@ -1,6 +1,16 @@
 <template>
   <button
-    class="text-white font-bold px-5 py-3 hover:shadow-lg rounded-large"
+    class="
+      text-white
+      font-bold
+      px-5
+      py-3
+      hover:shadow-lg
+      rounded-large
+      flex
+      items-center
+      justify-center
+    "
     @click="$emit('click', $event)"
   >
     <slot name="icon"></slot>
