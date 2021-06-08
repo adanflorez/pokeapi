@@ -15,6 +15,7 @@
       <UIButton
         class="mt-14 bg-default-primary"
         text="Get started"
+        @click="goToListView"
       />
     </div>
   </div>
@@ -26,5 +27,10 @@ import Vue from "vue";
 
 export default Vue.extend({
   components: { UIButton },
+  methods: {
+    goToListView() {
+      this.$router.push("lista-pokemon");
+    },
+  },
 });
 </script>

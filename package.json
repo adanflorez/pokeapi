@@ -9,6 +9,7 @@
     "test:coverage": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
+    "@vue/eslint-config-typescript": "^7.0.0",
     "core-js": "^3.6.5",
     "tailwind": "^4.0.0",
     "vue": "^2.6.11",

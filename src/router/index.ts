@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +8,11 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Welcome',
     component: () => import('@/views/Welcome.vue')
+  },
+  {
+    path: '/lista-pokemon',
+    name: 'pokemon-list',
+    component: () => import('@/views/List.vue')
   },
 ]
 
