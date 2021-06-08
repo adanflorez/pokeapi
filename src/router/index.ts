@@ -10,6 +10,11 @@ const routes: Array<RouteConfig> = [
     name: 'Welcome',
     component: () => import('@/views/Welcome.vue')
   },
+  {
+    path: '/lista-pokemon',
+    name: 'pokemon-list',
+    component: () => import('@/views/List.vue')
+  },
 ]
 
 const router = new VueRouter({
