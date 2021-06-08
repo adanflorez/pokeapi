@@ -1,11 +1,7 @@
 <template>
   <div class="flex items-center justify-center text-center h-full p-10">
     <div class="text-center flex-col justify-center items-center">
-      <img
-        src="@/assets/img/welcome.svg"
-        alt="welcome"
-        class="mx-auto max-w-xs welcome-img"
-      />
+      <PokemonIcon class="welcome-img object-center w-80 mx-auto" />
       <h2 class="font-bold text-2xl mt-10 welcome-title">Welcome to Pokédex</h2>
       <h4 class="text-dark-slate mt-8 welcome-desc">
         The digital encyclopedia created by Professor Oak is an invaluable tool
@@ -13,7 +9,7 @@
         to Trainers in the Pokémon world.
       </h4>
       <UIButton
-        class="mt-14 bg-default-primary"
+        class="mt-14 bg-default-primary mx-auto"
         text="Get started"
         @click="goToListView"
       />
@@ -22,11 +18,14 @@
 </template>
 
 <script lang="ts">
-import UIButton from "@/components/ui/UIButton.vue";
 import Vue from "vue";
+// Components
+import UIButton from "@/components/ui/UIButton.vue";
+// Icons
+import PokemonIcon from "@/assets/img/welcome.svg";
 
 export default Vue.extend({
-  components: { UIButton },
+  components: { UIButton, PokemonIcon },
   methods: {
     goToListView() {
       this.$router.push("lista-pokemon");
