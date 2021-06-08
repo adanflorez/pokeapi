@@ -23,6 +23,7 @@ module.exports = {
       'default-smoke': 'var(--default-smoke)',
       'ligth-smoke': 'var(--ligth-smoke)',
       'dark-smoke': 'var(--dark-smoke)',
+      white: 'var(--white)',
     },
     backgroundColor: theme => theme('colors'),
     fontFamily: {
@@ -63,9 +64,10 @@ module.exports = {
       bold: 700,
     },
     textColor: theme => theme('colors'),
-    
+    borderRadius: {
+      'large': '60px',
+    }
   },
-  corePlugins: {},
   purge: {
     enabled: process.env.NODE_ENV === 'production',
     content: [
