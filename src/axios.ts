@@ -2,7 +2,6 @@
 import axios from 'axios'
 
 const urlApi = process.env.VUE_APP_BASE_URL
-console.log('api', urlApi);
 const api = axios.create({
   baseURL: urlApi
 })
