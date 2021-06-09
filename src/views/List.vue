@@ -48,6 +48,9 @@ export default Vue.extend({
     search(word: String): void {
       console.log(word);
     },
+    /**
+     * This function calls the service that loads a pokemon list
+     */
     async getPokemonList(): Promise<void> {
       try {
         const { data } = await services.getPokemonList();
