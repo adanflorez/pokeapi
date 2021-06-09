@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapMutations } from "vuex";
 // Components
 import FooterButtons from "@/components/common/FooterButtons.vue";
 import Loading from "@/components/common/Loading.vue";
@@ -56,11 +57,13 @@ export default Vue.extend({
         const { data } = await services.getPokemonList();
         this.pokemons = data.results;
         this.isLoading = false;
+        this.setPokemons(this.pokemons)
       } catch (error) {
         this.isLoading = false;
-        alert('Something went wrong')
+        alert("Something went wrong");
       }
     },
+    ...mapMutations(['setPokemons'])
   },
 });
 </script>
