@@ -2,18 +2,15 @@
   <div>
     <Loading v-if="isLoading" />
     <template v-else>
-      <div class="grid grid-cols-8 gap-4 pt-9 mb-14 pb-10">
-        <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
-          <UIInput class="mb-10" placeholder="Search" @input="search">
-            <SearchIcon
-              class="m-4 fill-current text-default-slate"
-              slot="icon"
-            />
-          </UIInput>
-          <PokemonList :pokemons="pokemons" />
-        </div>
+    <div ref="infinitelist" class="grid grid-cols-8 gap-4 pt-9 pb-24">
+      <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
+        <UIInput class="mb-10" placeholder="Search" @input="search">
+          <SearchIcon class="m-4 fill-current text-default-slate" slot="icon" />
+        </UIInput>
+        <PokemonList :pokemons="pokemons" />
       </div>
-      <FooterButtons />
+    </div>
+    <FooterButtons />
     </template>
   </div>
 </template>
@@ -36,7 +33,7 @@ export default Vue.extend({
   data() {
     return {
       isLoading: true,
-      pokemons: {} as Pokemon,
+      pokemons: [] as Array<Pokemon>,
     };
   },
   mounted() {
@@ -56,14 +53,13 @@ export default Vue.extend({
       try {
         const { data } = await services.getPokemonList();
         this.pokemons = data.results;
-        this.isLoading = false;
-        this.setPokemons(this.pokemons)
+        this.setPokemons(this.pokemons);
       } catch (error) {
-        this.isLoading = false;
         alert("Something went wrong");
       }
+      this.isLoading = false;
     },
-    ...mapMutations(['setPokemons'])
+    ...mapMutations(["setPokemons"])
   },
 });
 </script>
