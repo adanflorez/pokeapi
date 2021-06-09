@@ -2,14 +2,15 @@
   <div>
     <Loading v-if="isLoading" />
     <template v-else>
-      <div class="grid grid-cols-8 gap-4 pt-9">
+      <div class="grid grid-cols-8 gap-4 pt-9 mb-14 pb-10">
         <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
-          <UIInput placeholder="Search" @input="search">
+          <UIInput class="mb-10" placeholder="Search" @input="search">
             <SearchIcon
               class="m-4 fill-current text-default-slate"
               slot="icon"
             />
           </UIInput>
+          <PokemonList />
         </div>
       </div>
       <FooterButtons />
@@ -25,9 +26,10 @@ import Loading from "@/components/common/Loading.vue";
 import UIInput from "@/components/ui/UIInput.vue";
 // Icons
 import SearchIcon from "@/assets/img/search.svg";
+import PokemonList from "@/components/list/PokemonList.vue";
 
 export default Vue.extend({
-  components: { Loading, FooterButtons, UIInput, SearchIcon },
+  components: { Loading, FooterButtons, UIInput, SearchIcon, PokemonList },
   data() {
     return {
       isLoading: true,
