@@ -1,6 +1,8 @@
 <template>
   <div>
-    <PokemonItem />
+    <template v-for="(pokemon, index) in pokemons">
+      <PokemonItem :key="index" :pokemon="pokemon" />
+    </template>
   </div>
 </template>
 
@@ -11,6 +13,9 @@ import { Pokemon } from "@/interfaces/pokemon";
 
 export default Vue.extend({
   props: {
+    /**
+     * Pokemons list property
+     */
     pokemons: {
       type: Array,
       default: () => []

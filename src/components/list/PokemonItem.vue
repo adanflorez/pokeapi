@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between items-center mb-2.5 item">
-    <span>
-      {{ pokemon }}
+    <span class="capitalize">
+      {{ pokemon.name }}
     </span>
     <div
       class="
@@ -23,18 +23,22 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropOptions } from "vue";
 import StarIcon from "@/assets/img/star.svg";
+import { Pokemon } from "@/interfaces/pokemon";
 
 export default Vue.extend({
   components: {
     StarIcon,
   },
   props: {
+    /**
+     * Pokemon object property
+     */
     pokemon: {
-      type: String,
-      default: "Pikachu",
-    },
+      type: Object,
+      required: true
+    } as PropOptions<Pokemon>
   },
 });
 </script>
