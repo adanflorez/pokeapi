@@ -1,10 +1,11 @@
 import api from "../axios"
 
-const version = 'v2'
+const version = process.env.VUE_APP_VERSION
 
 const services = {
-    getPokemonList() {
-        return api.get(`${version}/pokemon`)
+    getPokemonList(next?: String) {
+        const nextPage = next ? `?${next}` : ''; 
+        return api.get(`${version}/pokemon${nextPage}`)
     }
 }
 

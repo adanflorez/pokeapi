@@ -2,15 +2,18 @@
   <div>
     <Loading v-if="isLoading" />
     <template v-else>
-    <div ref="infinitelist" class="grid grid-cols-8 gap-4 pt-9 pb-24">
-      <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
-        <UIInput class="mb-10" placeholder="Search" @input="search">
-          <SearchIcon class="m-4 fill-current text-default-slate" slot="icon" />
-        </UIInput>
-        <PokemonList :pokemons="pokemons" />
+      <div ref="infinitelist" class="grid grid-cols-8 gap-4 pt-9 pb-24">
+        <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
+          <UIInput class="mb-10" placeholder="Search" @input="search">
+            <SearchIcon
+              class="m-4 fill-current text-default-slate"
+              slot="icon"
+            />
+          </UIInput>
+          <PokemonList :pokemons="pokemons" />
+        </div>
       </div>
-    </div>
-    <FooterButtons />
+      <FooterButtons />
     </template>
   </div>
 </template>
@@ -34,6 +37,11 @@ export default Vue.extend({
     return {
       isLoading: true,
       pokemons: [] as Array<Pokemon>,
+      urlBase:
+        process.env.VUE_APP_BASE_URL +
+        process.env.VUE_APP_VERSION +
+        "/pokemon?",
+      nextPage: "",
     };
   },
   mounted() {
@@ -41,6 +49,7 @@ export default Vue.extend({
     setTimeout(() => {
       this.getPokemonList();
     }, 2000);
+    this.scroll();
   },
   methods: {
     search(word: String): void {
@@ -51,15 +60,35 @@ export default Vue.extend({
      */
     async getPokemonList(): Promise<void> {
       try {
-        const { data } = await services.getPokemonList();
-        this.pokemons = data.results;
+        const { data } = await services.getPokemonList(this.nextPage);
+        this.pokemons = [...this.pokemons, ...data.results];
+        this.nextPage = data.next.replace(this.urlBase, "");
         this.setPokemons(this.pokemons);
       } catch (error) {
         alert("Something went wrong");
       }
       this.isLoading = false;
     },
-    ...mapMutations(["setPokemons"])
+    ...mapMutations(["setPokemons"]),
+    scroll() {
+      window.addEventListener("scroll", this.validateScroll);
+    },
+    validateScroll() {
+      if (this.isLimitBottom()) {
+        this.getPokemonList();
+      }
+    },
+    removeScroll() {
+      window.removeEventListener("scroll", this.validateScroll);
+    },
+    isLimitBottom() {
+      const ref = (this.$refs as any).infinitelist;
+      if (ref) {
+        const rect = ref.getBoundingClientRect();
+        const html = document.documentElement;
+        return rect.bottom <= (window.innerHeight || html.clientHeight);
+      }
+    },
   },
 });
 </script>
