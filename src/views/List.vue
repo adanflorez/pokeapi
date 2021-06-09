@@ -10,7 +10,7 @@
               slot="icon"
             />
           </UIInput>
-          <PokemonList />
+          <PokemonList :pokemons="pokemons" />
         </div>
       </div>
       <FooterButtons />
@@ -27,22 +27,36 @@ import UIInput from "@/components/ui/UIInput.vue";
 // Icons
 import SearchIcon from "@/assets/img/search.svg";
 import PokemonList from "@/components/list/PokemonList.vue";
+import services from "@/http/services";
+import { Pokemon } from "@/interfaces/pokemon";
 
 export default Vue.extend({
   components: { Loading, FooterButtons, UIInput, SearchIcon, PokemonList },
   data() {
     return {
       isLoading: true,
+      pokemons: {} as Pokemon,
     };
   },
   mounted() {
+    // IMPORTANT: this timeout is only to be able to see the loading effect of the pokeball
     setTimeout(() => {
-      this.isLoading = false;
+      this.getPokemonList();
     }, 2000);
   },
   methods: {
     search(word: String): void {
       console.log(word);
+    },
+    async getPokemonList(): Promise<void> {
+      try {
+        const { data } = await services.getPokemonList();
+        this.pokemons = data.results;
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        alert('Something went wrong')
+      }
     },
   },
 });
