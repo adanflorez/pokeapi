@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-30 inset-0 overflow-y-auto"
+    class="fixed z-30 inset-0 overflow-y-auto min-h-20"
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true"
@@ -40,10 +40,11 @@
           w-full
         "
       >
-        <div class="bg-white">
+        <div class="bg-white" :class="{ 'h-80': isLoading }">
           <div class="absolute top-2 right-2">
             <CloseIcon class="cursor-pointer" @click="closeModal" />
           </div>
+          <Loading v-if="isLoading" />
           <slot name="content" />
         </div>
       </div>
@@ -59,6 +60,12 @@ import Loading from "./Loading.vue";
 
 export default Vue.extend({
   components: { CloseIcon, Loading },
+  props: {
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     /**
      * Method to close modal
