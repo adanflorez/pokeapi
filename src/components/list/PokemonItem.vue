@@ -48,8 +48,7 @@ export default Vue.extend({
      * Method to see pokemon detail
      */
     viewDetail() {
-      console.log("ver detalle");
-      this.$emit("showModal", true);
+      this.$emit("pokemonName", this.pokemon.name);
     },
     ...mapMutations(["setFavoritePokemons"]),
   },
