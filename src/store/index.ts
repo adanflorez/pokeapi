@@ -12,12 +12,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pokemons: [] as Array<Pokemon>,
+    pokemonsList: [] as Array<Pokemon>,
     favoritePokemons: [] as Array<Pokemon>
   },
   mutations: {
     setPokemons: (state, pokemons: Array<Pokemon>) => {
-      state.pokemons = [...pokemons]
+      state.pokemonsList = [...pokemons]
     },
     setFavoritePokemons: (state, pokemon: Pokemon) => {
       const pok = state.favoritePokemons.find((p) => p.name === pokemon.name)
