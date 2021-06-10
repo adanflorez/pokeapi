@@ -16,9 +16,25 @@
             />
           </UIInput>
           <PokemonList :pokemons="pokemonsFiltered" />
+          <template v-if="!pokemonsFiltered.length">
+            <div class="flex justify-center">
+              <div class="text-center">
+                <h3 class="text-3xl font-bold text-extra-dark-slate">Uh-oh!</h3>
+                <h5 class="text-dark-slate text-lg">
+                  You look lost on your journey!
+                </h5>
+                <UIButton
+                  text="Go back home"
+                  class="bg-default-primary mx-auto mt-6"
+                  @click="goHome"
+                />
+              </div>
+            </div>
+          </template>
         </div>
       </div>
       <FooterButtons
+        v-if="pokemonsFiltered.length"
         @favoritePokemons="setFavoritesPokemon"
         @allPokemons="setAllPokemons"
       />
@@ -38,9 +54,17 @@ import SearchIcon from "@/assets/img/search.svg";
 import PokemonList from "@/components/list/PokemonList.vue";
 import services from "@/http/services";
 import { Pokemon } from "@/interfaces/pokemon";
+import UIButton from "@/components/ui/UIButton.vue";
 
 export default Vue.extend({
-  components: { Loading, FooterButtons, UIInput, SearchIcon, PokemonList },
+  components: {
+    Loading,
+    FooterButtons,
+    UIInput,
+    SearchIcon,
+    PokemonList,
+    UIButton,
+  },
   data() {
     return {
       isLoading: true,
@@ -73,8 +97,13 @@ export default Vue.extend({
      * @param pokemonName - the name of the pokemon to search
      */
     search(pokemonName: string): void {
-      let result = this.pokemons.filter((o) => o.name.includes(pokemonName));
-      this.pokemonsFiltered = [...result];
+      if (this.showAllPokemons) {
+        let result = this.pokemons.filter((o) => o.name.includes(pokemonName));
+        this.pokemonsFiltered = [...result];
+      } else {
+        let resultFavorites = this.favoritePokemons.filter((o: any) => o.name.includes(pokemonName));
+        this.pokemonsFiltered = [...resultFavorites]
+      }
     },
     /**
      * This function calls the service that loads a pokemon list
@@ -120,15 +149,27 @@ export default Vue.extend({
         return rect.bottom <= (window.innerHeight || html.clientHeight);
       }
     },
+    /**
+     * Show favorites pokemon
+     */
     setFavoritesPokemon() {
       this.showFavorites = true;
       this.showAllPokemons = false;
       this.pokemonsFiltered = this.favoritePokemons;
     },
+    /**
+     * Show all pokemon
+     */
     setAllPokemons() {
       this.showFavorites = false;
       this.showAllPokemons = true;
       this.pokemonsFiltered = this.pokemonsList;
+    },
+    /**
+     * Go back home
+     */
+    goHome() {
+      this.$router.push("/");
     },
   },
 });
