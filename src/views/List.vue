@@ -4,7 +4,12 @@
     <template v-else>
       <div ref="infinitelist" class="grid grid-cols-8 gap-4 pt-9 pb-24">
         <div class="col-start-2 lg:col-start-3 col-span-6 lg:col-span-4">
-          <UIInput v-model="pokemonName" class="mb-10" placeholder="Search" @input="search">
+          <UIInput
+            v-model="pokemonName"
+            class="mb-10"
+            placeholder="Search"
+            @input="search"
+          >
             <SearchIcon
               class="m-4 fill-current text-default-slate"
               slot="icon"
@@ -37,7 +42,7 @@ export default Vue.extend({
     return {
       isLoading: true,
       pokemons: [] as Array<Pokemon>,
-      pokemonName: '',
+      pokemonName: "",
       urlBase:
         process.env.VUE_APP_BASE_URL +
         process.env.VUE_APP_VERSION +
@@ -56,7 +61,7 @@ export default Vue.extend({
   methods: {
     /**
      * filter pokemon by name
-     * 
+     *
      * @param pokemonName - the name of the pokemon to search
      */
     search(pokemonName: string): void {
@@ -86,7 +91,7 @@ export default Vue.extend({
       window.addEventListener("scroll", this.validateScroll);
     },
     /**
-     * It is validated if it is the bottom of the page to call 
+     * It is validated if it is the bottom of the page to call
      * the endpoint of the pokemon list
      */
     validateScroll() {
