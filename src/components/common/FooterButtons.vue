@@ -51,6 +51,7 @@ export default Vue.extend({
     showAllPokemon() {
       this.btnAllActive = true;
       this.btnFavoriteActive = false;
+      this.$emit("allPokemons", true);
     },
     /**
      * Show the list of favorite pokemon
@@ -58,6 +59,7 @@ export default Vue.extend({
     showFavoritePokemon() {
       this.btnFavoriteActive = true;
       this.btnAllActive = false;
+      this.$emit("favoritePokemons", true);
     },
   },
 });

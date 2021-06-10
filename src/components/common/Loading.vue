@@ -76,6 +76,7 @@ export default Vue.extend({});
   left: 45%;
   width: 60px;
   height: 60px;
+  z-index: 9999;
   margin-left: -30px;
   animation: bounce 2.5s infinite;
   -webkit-animation: bounce 2.5s infinite;

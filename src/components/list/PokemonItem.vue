@@ -1,35 +1,21 @@
 <template>
-  <div class="flex justify-between items-center mb-2.5 item">
-    <span class="capitalize">
-      {{ pokemon.name }}
-    </span>
-    <div
-      class="
-        rounded-full
-        h-11
-        w-11
-        bg-ligth-smoke
-        flex
-        justify-center
-        items-center
-        cursor-pointer
-        text-default-slate
-        hover:text-default-secondary
-      "
-    >
-      <StarIcon class="fill-current" />
-    </div>
+  <div
+    class="flex justify-between items-center mb-2.5 item cursor-pointer"
+    @click.self="viewDetail"
+  >
+    <span class="capitalize"> {{ pokemon.name }} </span>
+    <Favorite :pokemon="pokemon" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
-import StarIcon from "@/assets/img/star.svg";
 import { Pokemon } from "@/interfaces/pokemon";
+import Favorite from "../common/Favorite.vue";
 
 export default Vue.extend({
   components: {
-    StarIcon,
+    Favorite,
   },
   props: {
     /**
@@ -37,8 +23,16 @@ export default Vue.extend({
      */
     pokemon: {
       type: Object,
-      required: true
-    } as PropOptions<Pokemon>
+      required: true,
+    } as PropOptions<Pokemon>,
+  },
+  methods: {
+    /**
+     * Method to see pokemon detail
+     */
+    viewDetail() {
+      this.$emit("pokemonName", this.pokemon.name);
+    },
   },
 });
 </script>
