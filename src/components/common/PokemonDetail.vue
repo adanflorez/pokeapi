@@ -18,10 +18,7 @@
           text="Share to my friends"
           class="bg-default-primary mt-2.5"
         />
-        <Favorite
-          @click.native="toggleFavoritePokemon"
-          :isFavorite="isFavorite"
-        />
+        <Favorite :pokemon="pokemon" />
       </div>
     </div>
   </div>
@@ -29,7 +26,6 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
-import { mapState, mapMutations } from "vuex";
 import UIButton from "@/components/ui/UIButton.vue";
 import Favorite from "@/components/common/Favorite.vue";
 import { Pokemon } from "@/interfaces/pokemon";
@@ -50,27 +46,16 @@ export default Vue.extend({
       });
       return types ? types.join(", ") : "";
     },
-    isFavorite(): Boolean {
-      const pokemon = this.favoritePokemons.find(
-        (p: Pokemon) => p.name === this.pokemon.name
-      );
-      let isFavorite = this.favoritePokemons.includes(pokemon);
-      return isFavorite;
-    },
     pokemonImage(): String {
       return this.pokemon.imageUrl
         ? this.pokemon.imageUrl
         : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     },
-    ...mapState(["favoritePokemons"]),
   },
   methods: {
     /**
-     * Method to mark or unmark favorite pokemon
+     * Method to copy pokemon to clipboard
      */
-    toggleFavoritePokemon() {
-      this.setFavoritePokemons(this.pokemon);
-    },
     copyToCliboard(): void {
       const el = document.createElement("textarea");
       el.value = `${this.pokemon.name}, ${this.pokemon.weight}, ${this.pokemon.height}, ${this.types}`;
@@ -90,7 +75,6 @@ export default Vue.extend({
         document.getSelection()!.addRange(selected);
       }
     },
-    ...mapMutations(["setFavoritePokemons"]),
   },
 });
 </script>
