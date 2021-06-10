@@ -1,39 +1,22 @@
 <template>
-  <div class="flex justify-between items-center mb-2.5 item cursor-pointer">
+  <div
+    class="flex justify-between items-center mb-2.5 item cursor-pointer"
+    @click.self="viewDetail"
+  >
     <span class="capitalize"> {{ pokemon.name }} </span>
-    <div
-      class="
-        rounded-full
-        h-11
-        w-11
-        bg-ligth-smoke
-        flex
-        justify-center
-        items-center
-        cursor-pointer
-        text-default-slate
-        hover:text-default-secondary
-        cursor-pointer
-      "
-      @click="toggleFavoritePokemon"
-    >
-      <StarIcon
-        class="fill-current hover:text-default-secondary"
-        :class="{ 'text-default-secondary': isFavorite }"
-      />
-    </div>
+    <Favorite @click.native="toggleFavoritePokemon" :isFavorite="isFavorite" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
 import { mapMutations, mapState } from "vuex";
-import StarIcon from "@/assets/img/star.svg";
 import { Pokemon } from "@/interfaces/pokemon";
+import Favorite from "../common/Favorite.vue";
 
 export default Vue.extend({
   components: {
-    StarIcon,
+    Favorite,
   },
   props: {
     /**
@@ -55,8 +38,18 @@ export default Vue.extend({
     ...mapState(["favoritePokemons"]),
   },
   methods: {
+    /**
+     * Method to mark or unmark favorite pokemon
+     */
     toggleFavoritePokemon() {
       this.setFavoritePokemons(this.pokemon);
+    },
+    /**
+     * Method to see pokemon detail
+     */
+    viewDetail() {
+      console.log("ver detalle");
+      this.$emit("showModal", true);
     },
     ...mapMutations(["setFavoritePokemons"]),
   },
