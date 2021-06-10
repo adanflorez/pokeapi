@@ -18,14 +18,17 @@
           <PokemonList :pokemons="pokemonsFiltered" />
         </div>
       </div>
-      <FooterButtons />
+      <FooterButtons
+        @favoritePokemons="setFavoritesPokemon"
+        @allPokemons="setAllPokemons"
+      />
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 // Components
 import FooterButtons from "@/components/common/FooterButtons.vue";
 import Loading from "@/components/common/Loading.vue";
@@ -49,7 +52,12 @@ export default Vue.extend({
         "/pokemon?",
       nextPage: "",
       pokemonsFiltered: [] as Array<Pokemon>,
+      showFavorites: false,
+      showAllPokemons: true,
     };
+  },
+  computed: {
+    ...mapState(["favoritePokemons", "pokemonsList"]),
   },
   mounted() {
     // IMPORTANT: this timeout is only to be able to see the loading effect of the pokeball
@@ -72,16 +80,18 @@ export default Vue.extend({
      * This function calls the service that loads a pokemon list
      */
     async getPokemonList(): Promise<void> {
-      try {
-        const { data } = await services.getPokemonList(this.nextPage);
-        this.pokemons = [...this.pokemons, ...data.results];
-        this.pokemonsFiltered = this.pokemons;
-        this.nextPage = data.next.replace(this.urlBase, "");
-        this.setPokemons(this.pokemons);
-      } catch (error) {
-        alert("Something went wrong");
+      if (this.showAllPokemons) {
+        try {
+          const { data } = await services.getPokemonList(this.nextPage);
+          this.pokemons = [...this.pokemons, ...data.results];
+          this.pokemonsFiltered = this.pokemons;
+          this.nextPage = data.next.replace(this.urlBase, "");
+          this.setPokemons(this.pokemons);
+        } catch (error) {
+          alert("Something went wrong");
+        }
+        this.isLoading = false;
       }
-      this.isLoading = false;
     },
     ...mapMutations(["setPokemons"]),
     /**
@@ -109,6 +119,16 @@ export default Vue.extend({
         const html = document.documentElement;
         return rect.bottom <= (window.innerHeight || html.clientHeight);
       }
+    },
+    setFavoritesPokemon() {
+      this.showFavorites = true;
+      this.showAllPokemons = false;
+      this.pokemonsFiltered = this.favoritePokemons;
+    },
+    setAllPokemons() {
+      this.showFavorites = false;
+      this.showAllPokemons = true;
+      this.pokemonsFiltered = this.pokemonsList;
     },
   },
 });
