@@ -24,6 +24,7 @@ module.exports = {
       'ligth-smoke': 'var(--ligth-smoke)',
       'dark-smoke': 'var(--dark-smoke)',
       white: 'var(--white)',
+      'black-opacity': 'var(--black-opacity)'
     },
     backgroundColor: theme => theme('colors'),
     fontFamily: {
@@ -72,6 +73,13 @@ module.exports = {
       current: 'currentColor',
       ...theme('colors')
     }),
+    borderColor: theme => ({
+      ...theme('colors'),
+      default: theme('colors["dark-smoke"]', 'currentColor')
+    }),
+    borderWidth: {
+      default: '1px',
+    }
   },
   purge: {
     enabled: process.env.NODE_ENV === 'production',
