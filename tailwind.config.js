@@ -66,7 +66,12 @@ module.exports = {
     textColor: theme => theme('colors'),
     borderRadius: {
       'large': '60px',
-    }
+      full: '100%'
+    },
+    stroke: theme => ({
+      current: 'currentColor',
+      ...theme('colors')
+    }),
   },
   purge: {
     enabled: process.env.NODE_ENV === 'production',

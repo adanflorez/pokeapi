@@ -1,6 +1,6 @@
 {
   "name": "pokeapi",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vue/eslint-config-typescript": "^7.0.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "tailwind": "^4.0.0",
     "vue": "^2.6.11",
